@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
-
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../ct-core-utils/ct-api-provider-behaviour.html">
 <!--
 `ct-meter-model-api`
 API for meter management
@@ -9,26 +10,90 @@ API for meter management
 
 <dom-module id="ct-meter-model-api">
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <h2>Hello [[prop1]]!</h2>
+    <iron-ajax id="getMeterModelDetails"></iron-ajax>
+    <iron-ajax id="addMeterModel"></iron-ajax>
+    <iron-ajax id="updateMeterModel"></iron-ajax>
+    <iron-ajax id="deleteMeterModel"></iron-ajax>
   </template>
 
   <script>
     Polymer({
 
       is: 'ct-meter-model-api',
+      behaviors: [CT.Behaviours.ApiProvider],
 
-      properties: {
-        prop1: {
-          type: String,
-          value: 'ct-meter-model-api',
-        },
+      /**
+       * Get all available Meter Models
+       *
+       * @param {String} [pageNum=0]
+       * @param {String} [pageSize=20]
+       *
+       * @returns {Promise}
+       */
+      getMeterModelDetails: function(pageNum, pageSize){
+        var pageNum = pageNum || 0,
+              pageSize = pageSize || 20,
+              params = '';
+              params += '?page_number='+pageNum;
+              params += '&page_size='+pageSize;
+
+              this.$.getMeterModelDetails.url = this._url('/meter/model'+params);
+              return this._generateRequest(this.$.getMeterModelDetails);
       },
+      /**
+       * Create a new Meter Model
+       *
+       * @param {Object[]} params
+       * @param {String} params[].text
+       *
+       * @returns {Promise}
+       */
 
+       addMeterModel: function(params) {
+         this.$.addMeterModel.url=this._url('/meter/model');
+         this.$.addMeterModel.method = 'POST';
+         this.$.addMeterModel.contentType = "application/json";
+         this.$.addMeterModel.body = params;
+
+
+         return this._generateRequest(this.$.addMeterModel);
+       },
+
+
+       /**
+        * Update a Meter Model
+        *
+        * @param {Object[]} params
+        * @param {String} params[].text
+        *
+        * @returns {Promise}
+        */
+
+        updateMeterModel: function(params) {
+          this.$.updateMeterModel.url=this._url('/meter/model/'+params.id);
+          this.$.updateMeterModel.method = 'PUT';
+          this.$.updateMeterModel.contentType = "application/json";
+          this.$.updateMeterModel.body = params;
+
+          return this._generateRequest(this.$.updateMeterModel);
+        },
+
+        /**
+         * Delete a Meter Model
+         *
+         * @param {Object[]} params
+         * @param {String} params[].text
+         *
+         * @returns {Promise}
+         */
+
+         deleteMeterModel: function(id) {
+           this.$.deleteMeterModel.url = this._url('/meter/model/'+id);
+           this.$.deleteMeterModel.method = 'DELETE';
+           this.$.deleteMeterModel.contentType ="application/json";
+
+           return this._generateRequest(this.$.deleteMeterModel);
+         }
     });
   </script>
 </dom-module>
