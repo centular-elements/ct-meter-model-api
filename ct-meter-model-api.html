@@ -37,7 +37,7 @@ API for meter management
               params += '?page_number='+pageNum;
               params += '&page_size='+pageSize;
 
-              this.$.getMeterModelDetails.url = this._url('/meter/model'+params);
+              this.$.getMeterModelDetails.url = this._url('/meters/models'+params);
               return this._generateRequest(this.$.getMeterModelDetails);
       },
       /**
@@ -49,14 +49,14 @@ API for meter management
        * @returns {Promise}
        */
 
-       addMeterModel: function(params) {
-         this.$.addMeterModel.url=this._url('/meter/model');
+       addMeterModel: function(meterModelText) {
+         this.$.addMeterModel.url=this._url('/meters/models');
          this.$.addMeterModel.method = 'POST';
          this.$.addMeterModel.contentType = "application/json";
-         this.$.addMeterModel.body = params;
+         this.$.addMeterModel.body = { "text": meterModelText };
 
 
-         return this._generateRequest(this.$.addMeterModel);
+        return this._generateRequest(this.$.addMeterModel);
        },
 
 
@@ -70,7 +70,7 @@ API for meter management
         */
 
         updateMeterModel: function(params) {
-          this.$.updateMeterModel.url=this._url('/meter/model/'+params.id);
+          this.$.updateMeterModel.url=this._url('/meters/models/'+params.id);
           this.$.updateMeterModel.method = 'PUT';
           this.$.updateMeterModel.contentType = "application/json";
           this.$.updateMeterModel.body = params;
@@ -88,7 +88,7 @@ API for meter management
          */
 
          deleteMeterModel: function(id) {
-           this.$.deleteMeterModel.url = this._url('/meter/model/'+id);
+           this.$.deleteMeterModel.url = this._url('/meters/models/'+id);
            this.$.deleteMeterModel.method = 'DELETE';
            this.$.deleteMeterModel.contentType ="application/json";
 
