@@ -63,15 +63,16 @@ API for meter management
         * Update a Meter Model
         *
         * @param {Object[]} body
-        * @param {String} body[].id
-        * @param {String} body[].text
+        *  @param {String} body[].text
+*        * @param {String} id 
         * @returns {Promise}
         */
 
-        updateMeterModel: function(body) {
-          this.$.updateMeterModel.url=this._url('/meters/models/'+body.id);
+        updateMeterModel: function(body, id) {
+          this.$.updateMeterModel.url=this._url('/meters/models/'+id);
           this.$.updateMeterModel.method = 'PUT';
           this.$.updateMeterModel.contentType = "application/json";
+
           this.$.updateMeterModel.body = body;
 
           return this._generateRequest(this.$.updateMeterModel);
