@@ -49,16 +49,11 @@ API for meter management
        * @returns {Promise}
        */
 
-       addMeterModel: function(meterModelText) {
-         var obj = {}
-         obj['text'] = meterModelText;
-
+       addMeterModel: function(body) {
          this.$.addMeterModel.url=this._url('/meters/models');
          this.$.addMeterModel.method = 'POST';
          this.$.addMeterModel.contentType = "application/json";
-         this.$.addMeterModel.body = meterModelText;
-         //this.$.addMeterModel.body = '{ "text":' +  meterModelText + '}';
-
+         this.$.addMeterModel.body = body;
 
         return this._generateRequest(this.$.addMeterModel);
        },
@@ -67,17 +62,15 @@ API for meter management
        /**
         * Update a Meter Model
         *
-        * @param {Object[]} params
-        * @param {String} params[].text
-        *
+        * @param {Object[]} body
         * @returns {Promise}
         */
 
-        updateMeterModel: function(meterModelText) {
-          this.$.updateMeterModel.url=this._url('/meters/models/'+params.id);
+        updateMeterModel: function(body) {
+          this.$.updateMeterModel.url=this._url('/meters/models/'+body.id);
           this.$.updateMeterModel.method = 'PUT';
           this.$.updateMeterModel.contentType = "application/json";
-          this.$.updateMeterModel.body = '{ "text":' +  meterModelText + '}';
+          this.$.updateMeterModel.body = body;
 
           return this._generateRequest(this.$.updateMeterModel);
         },
@@ -85,8 +78,7 @@ API for meter management
         /**
          * Delete a Meter Model
          *
-         * @param {Object[]} params
-         * @param {String} params[].text
+         * @param {String} id
          *
          * @returns {Promise}
          */
