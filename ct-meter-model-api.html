@@ -50,10 +50,14 @@ API for meter management
        */
 
        addMeterModel: function(meterModelText) {
+         var obj = {}
+         obj['text'] = meterModelText;
+
          this.$.addMeterModel.url=this._url('/meters/models');
          this.$.addMeterModel.method = 'POST';
          this.$.addMeterModel.contentType = "application/json";
-         this.$.addMeterModel.body = { "text": meterModelText };
+         this.$.addMeterModel.body = meterModelText;
+         //this.$.addMeterModel.body = '{ "text":' +  meterModelText + '}';
 
 
         return this._generateRequest(this.$.addMeterModel);
@@ -69,11 +73,11 @@ API for meter management
         * @returns {Promise}
         */
 
-        updateMeterModel: function(params) {
+        updateMeterModel: function(meterModelText) {
           this.$.updateMeterModel.url=this._url('/meters/models/'+params.id);
           this.$.updateMeterModel.method = 'PUT';
           this.$.updateMeterModel.contentType = "application/json";
-          this.$.updateMeterModel.body = params;
+          this.$.updateMeterModel.body = '{ "text":' +  meterModelText + '}';
 
           return this._generateRequest(this.$.updateMeterModel);
         },
