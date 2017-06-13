@@ -43,8 +43,8 @@ API for meter management
       /**
        * Create a new Meter Model
        *
-       * @param {Object[]} params
-       * @param {String} params[].text
+       * @param {Object[]} body
+       * @param {String} body[].text
        *
        * @returns {Promise}
        */
@@ -63,6 +63,8 @@ API for meter management
         * Update a Meter Model
         *
         * @param {Object[]} body
+        * @param {String} body[].id
+        * @param {String} body[].text
         * @returns {Promise}
         */
 
