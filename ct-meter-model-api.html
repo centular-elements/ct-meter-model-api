@@ -25,13 +25,13 @@ API for meter management
       /**
        * Get all available Meter Models
        *
-       * @param {String} [pageNum=0]
+       * @param {String} [pageNum=1]
        * @param {String} [pageSize=20]
        *
        * @returns {Promise}
        */
       getMeterModelDetails: function(pageNum, pageSize){
-        var pageNum = pageNum || 0,
+        var pageNum = pageNum || 1,
               pageSize = pageSize || 20,
               params = '';
               params += '?page_number='+pageNum;
